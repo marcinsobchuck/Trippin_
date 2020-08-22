@@ -1,15 +1,10 @@
 import React, { useState, useCallback, useRef } from "react";
 import "../../reset/reset.scss";
 import mapStyles from "./mapStyles";
-import "./Map.scss";
 import Search from "../Search/Search";
+import { InfoWindowBox } from "../InfoWindowBox/InfoWindowBox";
 
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -57,13 +52,10 @@ const Map = () => {
 
   return (
     <>
-      <h1>
-        TRIPPIN<i className="fas fa-globe-europe"></i>
-      </h1>
       <div>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          zoom={8}
+          zoom={5}
           center={center}
           options={options}
           onClick={onMapClick}
@@ -87,16 +79,7 @@ const Map = () => {
             />
           ))}
           {selected ? (
-            <InfoWindow
-              position={{ lat: selected.lat, lng: selected.lng }}
-              onCloseClick={() => {
-                setSelected(null);
-              }}
-            >
-              <div>
-                <h2>Cena biletu: ileś</h2>
-              </div>
-            </InfoWindow>
+            <InfoWindowBox selected={selected} setSelected={setSelected} />
           ) : null}
         </GoogleMap>
       </div>

@@ -1,52 +1,6 @@
 export default [
   {
-    featureType: "all",
-    elementType: "geometry",
-    stylers: [
-      {
-        color: "#202c3e",
-      },
-    ],
-  },
-  {
-    featureType: "all",
-    elementType: "labels.text.fill",
-    stylers: [
-      {
-        gamma: 0.01,
-      },
-      {
-        lightness: 20,
-      },
-      {
-        weight: "1.39",
-      },
-      {
-        color: "#ffffff",
-      },
-    ],
-  },
-  {
-    featureType: "all",
-    elementType: "labels.text.stroke",
-    stylers: [
-      {
-        weight: "0.96",
-      },
-      {
-        saturation: "9",
-      },
-      {
-        visibility: "on",
-      },
-      {
-        color: "#000000",
-      },
-    ],
-  },
-  {
-    featureType: "all",
-    elementType: "labels.icon",
+    featureType: "road",
     stylers: [
       {
         visibility: "off",
@@ -54,26 +8,24 @@ export default [
     ],
   },
   {
-    featureType: "landscape",
-    elementType: "geometry",
+    featureType: "transit",
     stylers: [
       {
-        lightness: 30,
-      },
-      {
-        saturation: "9",
-      },
-      {
-        color: "#29446b",
+        visibility: "off",
       },
     ],
   },
   {
-    featureType: "poi",
-    elementType: "geometry",
+    featureType: "administrative.province",
     stylers: [
       {
-        saturation: 20,
+        visibility: "on",
+      },
+      {
+        weight: 1.3,
+      },
+      {
+        color: "#000b29",
       },
     ],
   },
@@ -82,55 +34,44 @@ export default [
     elementType: "geometry",
     stylers: [
       {
-        lightness: 20,
-      },
-      {
-        saturation: -20,
-      },
-    ],
-  },
-  {
-    featureType: "road",
-    elementType: "geometry",
-    stylers: [
-      {
-        lightness: 10,
-      },
-      {
-        saturation: -30,
-      },
-    ],
-  },
-  {
-    featureType: "road",
-    elementType: "geometry.fill",
-    stylers: [
-      {
-        color: "#193a55",
-      },
-    ],
-  },
-  {
-    featureType: "road",
-    elementType: "geometry.stroke",
-    stylers: [
-      {
-        saturation: 25,
-      },
-      {
-        lightness: 25,
-      },
-      {
-        weight: "0.01",
+        visibility: "off",
       },
     ],
   },
   {
     featureType: "water",
-    elementType: "all",
     stylers: [
       {
-        lightness: -20,
+        color: "#004b76",
+      },
+    ],
+  },
+  {
+    featureType: "landscape.natural",
+    stylers: [
+      {
+        visibility: "on",
+      },
+      {
+        color: "#fff6cb",
+      },
+    ],
+  },
+  {
+    featureType: "administrative.country",
+    elementType: "geometry.stroke",
+    stylers: [
+      {
+        visibility: "on",
+      },
+      {
+        color: "#7f7d7a",
+      },
+      {
+        lightness: 10,
+      },
+      {
+        weight: 1.3,
       },
     ],
   },
