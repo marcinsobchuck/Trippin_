@@ -37,7 +37,7 @@ h1 {
   outline: none;
   border: none;
   border-radius: 5px;
-  padding: 14px 16px;
+
   margin-top: 20px;
   width: 100%;
 }
@@ -83,4 +83,8 @@ h1 {
 .DateRangePickerInput__withBorder {
   border-radius: 5px;
   width: 100%;
+}
+
+.aws-btn {
+  z-index: 0;
 }

@@ -3,6 +3,7 @@ import "../../reset/reset.scss";
 import mapStyles from "./mapStyles";
 import Search from "../Search/Search";
 import { InfoWindowBox } from "../InfoWindowBox/InfoWindowBox";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 
@@ -24,23 +25,54 @@ const options = {
 
 const Map = () => {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&language=en`,
     libraries,
   });
 
   const [markers, setMarkers] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [startCoordinates, setStartCoordinates] = useState({
+    lat: null,
+    lng: null,
+  });
+  const [destCoordinates, setDestCoordinates] = useState({
+    lat: null,
+    lng: null,
+  });
+  const [start, setStart] = useState("");
+  const [destination, setDestination] = useState("");
 
-  const onMapClick = useCallback((event) => {
-    setMarkers((prevState) => [
-      ...prevState,
+  const handleButtonClick = useCallback(() => {
+    setMarkers([]);
+    fetch(
+      `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/en-GB/?query=${destination}`,
       {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-        time: new Date(),
-      },
-    ]);
-  }, []);
+        method: "GET",
+        headers: {
+          "x-rapidapi-host":
+            "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
+          "x-rapidapi-key": process.env.REACT_APP_SKYSCANNER_API_KEY,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((res) => {
+        res.Places.map((el) => {
+          return geocodeByAddress(el.PlaceName)
+            .then((res) => {
+              return getLatLng(res[0]);
+            })
+            .then((latlong) => {
+              console.log(latlong);
+              console.log(markers);
+              setMarkers((prevState) => [...prevState, latlong]);
+            });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [markers, destination]);
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -49,7 +81,7 @@ const Map = () => {
 
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading maps";
-
+  console.log(markers);
   return (
     <>
       <div>
@@ -58,10 +90,17 @@ const Map = () => {
           zoom={5}
           center={center}
           options={options}
-          onClick={onMapClick}
           onLoad={onMapLoad}
         >
-          <Search />
+          <Search
+            setStartCoordinates={setStartCoordinates}
+            setDestCoordinates={setDestCoordinates}
+            handleButtonClick={handleButtonClick}
+            start={start}
+            setStart={setStart}
+            destination={destination}
+            setDestination={setDestination}
+          />
           {markers.map((marker, index) => (
             <Marker
               key={index}
@@ -69,7 +108,7 @@ const Map = () => {
               icon={{
                 url:
                   "https://infare.com/wp-content/uploads/2019/11/Airport-Icon-GreenWhite-e1574266744400.png",
-                scaledSize: new window.google.maps.Size(45, 45),
+                scaledSize: new window.google.maps.Size(24, 24),
                 origin: new window.google.maps.Point(0, 0),
                 anchor: new window.google.maps.Point(22.5, 22.5),
               }}

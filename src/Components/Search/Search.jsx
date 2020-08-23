@@ -10,13 +10,15 @@ import "./Search.scss";
 
 const today = moment();
 
-const Search = () => {
-  const [start, setStart] = useState("");
-  const [destination, setDestination] = useState("");
-  const [coordinates, setCoordinates] = useState({
-    lat: null,
-    lng: null,
-  });
+const Search = ({
+  setDestCoordinates,
+  setStartCoordinates,
+  handleButtonClick,
+  start,
+  setStart,
+  destination,
+  setDestination,
+}) => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [isFocused, setIsFocused] = useState();
@@ -39,14 +41,14 @@ const Search = () => {
         <AutoComplete
           address={start}
           setAddress={setStart}
-          setCoordinates={setCoordinates}
+          setCoordinates={setStartCoordinates}
           placeholder="Start"
           customClass="auto_complete"
         />
         <AutoComplete
           address={destination}
           setAddress={setDestination}
-          setCoordinates={setCoordinates}
+          setCoordinates={setDestCoordinates}
           placeholder="Destination"
           customClass="auto_complete"
         />
@@ -67,8 +69,12 @@ const Search = () => {
           minDate={today}
           maxDate={moment().add(2, "months").endOf("month")}
         />
-        <AwesomeButton type="primary" className="aws-btn">
-          Primary
+        <AwesomeButton
+          onPress={handleButtonClick}
+          type="primary"
+          className="aws-btn"
+        >
+          Search
         </AwesomeButton>
       </div>
     </>
