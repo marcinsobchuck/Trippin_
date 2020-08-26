@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import { default as MaterialUiAutocomplete } from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import "./Search.scss";
@@ -9,7 +8,6 @@ import "./Search.scss";
 export const AutoComplete = ({
   address,
   setAddress,
-  setCoordinates,
   placeholder,
   customClass,
 }) => {
@@ -43,20 +41,9 @@ export const AutoComplete = ({
     }
   }, [open]);
 
-  const handleSelect = (value) => {
-    geocodeByAddress(value)
-      .then((res) => getLatLng(res[0]))
-      .then((res) => {
-        setAddress(value);
-        setCoordinates(res);
-        console.log(res);
-      });
-  };
-
   const handleChange = (event, value) => {
     if (value) {
       setAddress(value.name);
-      handleSelect(value.name);
     }
   };
 
@@ -65,7 +52,7 @@ export const AutoComplete = ({
   };
 
   return (
-    <Autocomplete
+    <MaterialUiAutocomplete
       inputValue={address}
       onChange={handleChange}
       onInputChange={handleInputChange}
@@ -101,38 +88,4 @@ export const AutoComplete = ({
       )}
     />
   );
-  // return (
-
-  //   // <PlacesAutocomplete
-  //   //   value={address}
-  //   //   onChange={setAddress}
-  //   //   onSelect={handleSelect}
-  //   // >
-  //   //   {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-  //   //     <div>
-  //   //       <input className={customClass} {...getInputProps({ placeholder })} />
-
-  //   //       <div style={{ position: "absolute", zIndex: 9999, width: "100%" }}>
-  //   //         {loading ? <div>...loading</div> : null}
-
-  //   //         {suggestions.map((suggestion) => {
-  //   //           const style = {
-  //   //             backgroundColor: suggestion.active ? "dodgerblue" : "white",
-  //   //             color: suggestion.active ? "white" : "black",
-  //   //           };
-
-  //   //           return (
-  //   //             <div
-  //   //               {...getSuggestionItemProps(suggestion, { style })}
-  //   //               key={suggestion.index}
-  //   //             >
-  //   //               {suggestion.description}
-  //   //             </div>
-  //   //           );
-  //   //         })}
-  //   //       </div>
-  //   //     </div>
-  //   //   )}
-  //   // </PlacesAutocomplete>
-  // );
 };
