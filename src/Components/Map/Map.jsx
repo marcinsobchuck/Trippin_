@@ -46,7 +46,7 @@ const Map = () => {
     libraries,
   });
 
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState();
 
   const [start, setStart] = useState("");
   const [destination, setDestination] = useState("");
@@ -60,6 +60,8 @@ const Map = () => {
   const [destData, setDestData] = useState();
   const [startMarker, setStartMarker] = useState();
   const [destMarker, setDestMarker] = useState();
+
+  console.log(chosenStartPlace);
 
   const [darkMode, setDarkMode] = useState(false);
 
@@ -93,11 +95,6 @@ const Map = () => {
     getQuote(destAirportCode, startAirportCode, endDate.format("YYYY-MM-DD"))
       .then((response) => response.json())
       .then((data) => setDestData(data))
-      .then((res) =>
-        setTimeout(() => {
-          console.log(destMarker);
-        }, 3000)
-      )
       .catch((err) => {
         console.log(err);
       });
@@ -135,15 +132,6 @@ const Map = () => {
     radius: 30000,
     paths: [startMarker, destMarker],
     zIndex: 1,
-  };
-
-  const buttonStyle = {
-    width: "200px",
-    height: "100px",
-    backgroundColor: "gold",
-    position: "absolute",
-    right: "60px",
-    top: "60px",
   };
 
   return (
@@ -219,25 +207,15 @@ const Map = () => {
           {destData ? <Polyline path={path} options={optionsPolyline} /> : null}
 
           {darkMode === false ? (
-            <div className="emojiBox">
-              <span
-                onClick={handleClickDarkMode}
-                className="emoji"
-                role="img"
-                aria-label="smile"
-              >
-                😊
+            <div onClick={handleClickDarkMode} className="emojiBox">
+              <span className="emoji moon" role="img" aria-label="moon">
+                🌙
               </span>
             </div>
           ) : (
-            <div className="emojiBox">
-              <span
-                onClick={handleClickDarkMode}
-                className="emoji"
-                role="img"
-                aria-label="sunglasses"
-              >
-                😎
+            <div onClick={handleClickDarkMode} className="emojiBox">
+              <span className="emoji sun" role="img" aria-label="sun">
+                ☀️
               </span>
             </div>
           )}

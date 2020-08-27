@@ -10,6 +10,7 @@ import moment from "moment";
 import { AutoComplete } from "./AutoComplete";
 import { AwesomeButton } from "react-awesome-button";
 import "react-awesome-button/dist/styles.css";
+import "react-awesome-button/dist/themes/theme-blue.css";
 
 import "./Search.scss";
 
@@ -111,7 +112,7 @@ const Search = ({
               return (
                 <MenuItem
                   key={place.PlaceId}
-                  value={`${place.PlaceName},${place.CountryName},${place.PlaceId}`}
+                  value={`${place.PlaceName}, ${place.CountryName},${place.PlaceId}`}
                 >
                   <span className="airport_name">{place.PlaceName}</span>,
                   <span className="airport_country">{place.CountryName},</span>
@@ -135,7 +136,7 @@ const Search = ({
               return (
                 <MenuItem
                   key={place.PlaceId}
-                  value={`${place.PlaceName},${place.CountryName},${place.PlaceId}`}
+                  value={`${place.PlaceName}, ${place.CountryName},${place.PlaceId}`}
                 >
                   <span className="airport_name">{place.PlaceName}</span>,
                   <span className="airport_country">{place.CountryName},</span>

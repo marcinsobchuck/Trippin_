@@ -1,6 +1,7 @@
 .emojiBox {
   position: absolute;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   right: 0;
@@ -8,14 +9,41 @@
   top: 50px;
   text-align: left;
   line-height: 36px;
+  padding: 3px 0;
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
-  padding: 10px 0;
   background-color: #000b29f7;
 }
 
 .emoji {
-  font-size: 36px;
+  font-size: 28px;
   color: white;
   cursor: pointer;
+}
+
+.moon {
+  animation: emojiMoonMove 0.3s both ease-in-out;
+}
+
+.sun {
+  animation: emojiSunMove 0.3s both ease-in-out;
+}
+
+@keyframes emojiMoonMove {
+  0% {
+    padding-left: 100px;
+  }
+  100% {
+    padding-left: 0;
+  }
+}
+
+@keyframes emojiSunMove {
+  0% {
+    padding-left: 100px;
+  }
+
+  100% {
+    padding-left: 0;
+  }
 }

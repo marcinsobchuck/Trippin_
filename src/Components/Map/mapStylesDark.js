@@ -77,7 +77,6 @@ export default [
   },
   {
     featureType: "road.highway",
-    elementType: "geometry.stroke",
     stylers: [
       {
         visibility: "off",
@@ -90,7 +89,6 @@ export default [
   },
   {
     featureType: "road.arterial",
-    elementType: "geometry.fill",
     stylers: [
       {
         visibility: "off",
@@ -100,7 +98,6 @@ export default [
   },
   {
     featureType: "road.arterial",
-    elementType: "geometry.stroke",
     stylers: [
       {
         visibility: "off",
@@ -123,7 +120,6 @@ export default [
   },
   {
     featureType: "transit",
-    elementType: "all",
     stylers: [
       {
         visibility: "off",
