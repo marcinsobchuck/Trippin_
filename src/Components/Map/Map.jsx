@@ -121,6 +121,7 @@ const Map = () => {
             if (!data.Quotes.length) {
               setStartMarker();
               setDestMarker();
+              setShowError(true);
             } else {
               setDestMarker(res);
             }
@@ -186,6 +187,7 @@ const Map = () => {
     setDestData();
     setStartMarker();
     setDestMarker();
+    setShowError(false);
   };
 
   return (
@@ -262,6 +264,24 @@ const Map = () => {
               setSelected={setSelected}
             />
           ) : null}
+
+          {showError ? (
+            <div className="error">
+              <div className="error_box">
+                <h2 className="error_title">
+                  We're sorry, currently there is no flight that matches your
+                  requirements.
+                </h2>
+                <button onClick={handleMenuButtonClick} className="error_btn">
+                  <p>Try again!</p>
+                </button>
+              </div>
+              <div className="error_sidebar">
+                <i className="far fa-frown-open"></i>
+              </div>
+            </div>
+          ) : null}
+
           {destData ? <Polyline path={path} options={optionsPolyline} /> : null}
 
           {darkMode === false ? (

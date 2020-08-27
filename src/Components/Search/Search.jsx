@@ -158,7 +158,7 @@ const Search = ({
 
   return (
     <div className="searchBoxPosition">
-      <h1>
+      <h1 className="searchBox_title">
         TRIPPIN<i className="fas fa-globe-europe"></i>
       </h1>
       <AutoComplete
@@ -200,7 +200,6 @@ const Search = ({
       >
         Search
       </AwesomeButton>
-      <button onClick={() => setStart("poland")}>OK</button>
     </div>
   );
 };
