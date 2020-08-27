@@ -7,18 +7,22 @@
   right: 0;
   width: 70px;
   top: 50px;
-  text-align: left;
   line-height: 36px;
   padding: 3px 0;
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
   background-color: #000b29f7;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    padding-right: 13px;
+  }
 }
 
 .emoji {
   font-size: 28px;
-  color: white;
-  cursor: pointer;
+  color: #f8f5f2;
+  padding-left: 10px;
 }
 
 .moon {
@@ -46,4 +50,37 @@
   100% {
     padding-left: 0;
   }
+}
+
+.menuBtn {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  left: -2px;
+  top: 50px;
+  text-align: right;
+  line-height: 36px;
+  padding: 3px 12px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #000b29f7;
+  color: #edb83d;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.2s ease-in-out;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+
+  &:hover {
+    background-color: #edb83d;
+    color: #000b29;
+    border: 2px solid transparent;
+    padding-left: 30px;
+  }
+}
+
+.hidden {
+  left: -1000px;
 }

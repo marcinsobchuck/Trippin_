@@ -40,7 +40,7 @@ export const InfoWindowBox = ({
                 setSelected(null);
               }}
             >
-              <i class="fas fa-times"></i>
+              <i className="fas fa-times"></i>
             </button>
             <div className="infobox_singlebox">
               <div className="infobox_bar start">START</div>
@@ -53,19 +53,19 @@ export const InfoWindowBox = ({
                     <strong>From:</strong> {chosenStartPlace}
                   </p>
                   <p className="infobox_text">
-                    <strong>Lowest price:</strong>
+                    <strong>Lowest price: </strong>
                     {startData.Quotes[0].MinPrice}$
                   </p>
                   <p className="infobox_text">
                     <strong>Carrier:</strong> {startData.Carriers[0].Name}
                   </p>
                   <p className="infobox_text">
-                    <strong>Departure date:</strong>
+                    <strong>Departure date: </strong>
                     {startDate ? startDate.format("YYYY-MM-DD") : null}
                   </p>
                 </div>
                 <div className="infobox_singlebox-sidebar start">
-                  <i class="fas fa-plane-departure start-icon"></i>
+                  <i className="fas fa-plane-departure start-icon"></i>
                 </div>
               </div>
             </div>
@@ -87,12 +87,12 @@ export const InfoWindowBox = ({
                     <strong>Carrier:</strong> {destData.Carriers[0].Name}
                   </p>
                   <p className="infobox_text">
-                    <strong>Departure date:</strong>{" "}
+                    <strong>Departure date: </strong>
                     {endDate ? endDate.format("YYYY-MM-DD") : null}
                   </p>
                 </div>
                 <div className="infobox_singlebox-sidebar return">
-                  <i class="fas fa-plane-departure return-icon"></i>
+                  <i className="fas fa-plane-departure return-icon"></i>
                 </div>
               </div>
             </div>

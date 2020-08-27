@@ -37,7 +37,14 @@ const Search = ({
 }) => {
   const [isFocused, setIsFocused] = useState();
 
-  const [isDisabled, setIsDisabled] = useState(true);
+  const isDisabled =
+    !start ||
+    !destination ||
+    !chosenStartPlace ||
+    !chosenDestPlace ||
+    !startDate ||
+    !endDate;
+
   const onDatesChange = ({ startDate, endDate }) => {
     setStartDate(startDate);
     setEndDate(endDate);
@@ -49,7 +56,6 @@ const Search = ({
   const handleChangeStart = (event) => {
     setChosenStartPlace(event.target.value);
   };
-
   const handleChangeDest = (event) => {
     setChosenDestPlace(event.target.value);
   };
@@ -107,12 +113,12 @@ const Search = ({
       return (
         <FormControl className="auto_complete" variant="filled">
           <InputLabel>Destination airport</InputLabel>
-          <Select value={chosenDestPlace} onChange={handleChangeDest}>
+          <Select value={chosenDestPlace || ""} onChange={handleChangeDest}>
             {destPlaces.map((place) => {
               return (
                 <MenuItem
                   key={place.PlaceId}
-                  value={`${place.PlaceName}, ${place.CountryName},${place.PlaceId}`}
+                  value={`${place.PlaceName}, ${place.CountryName}, ${place.PlaceId}`}
                 >
                   <span className="airport_name">{place.PlaceName}</span>,
                   <span className="airport_country">{place.CountryName},</span>
@@ -131,12 +137,12 @@ const Search = ({
       return (
         <FormControl className="auto_complete" variant="filled">
           <InputLabel>Starting airport</InputLabel>
-          <Select value={chosenStartPlace} onChange={handleChangeStart}>
+          <Select value={chosenStartPlace || ""} onChange={handleChangeStart}>
             {startPlaces.map((place) => {
               return (
                 <MenuItem
                   key={place.PlaceId}
-                  value={`${place.PlaceName}, ${place.CountryName},${place.PlaceId}`}
+                  value={`${place.PlaceName}, ${place.CountryName}, ${place.PlaceId}`}
                 >
                   <span className="airport_name">{place.PlaceName}</span>,
                   <span className="airport_country">{place.CountryName},</span>
@@ -149,73 +155,53 @@ const Search = ({
       );
     } else return null;
   };
-  useEffect(() => {
-    if (
-      start &&
-      destination &&
-      chosenStartPlace &&
-      chosenDestPlace &&
-      startDate &&
-      endDate
-    ) {
-      setIsDisabled(false);
-    }
-  }, [
-    start,
-    destination,
-    chosenStartPlace,
-    chosenDestPlace,
-    startDate,
-    endDate,
-  ]);
 
   return (
-    <>
-      <div className="searchBoxPosition">
-        <h1>
-          TRIPPIN<i className="fas fa-globe-europe"></i>
-        </h1>
-        <AutoComplete
-          address={start}
-          setAddress={setStart}
-          placeholder="Start"
-          customClass="auto_complete"
-        />
-        {startPlacesList()}
-        <AutoComplete
-          address={destination}
-          setAddress={setDestination}
-          placeholder="Destination"
-          customClass="auto_complete"
-        />
-        {destPlacesList()}
-        <DateRangePicker
-          startDateId="1"
-          endDateId="2"
-          onDatesChange={onDatesChange}
-          onFocusChange={onFocusChange}
-          focusedInput={isFocused}
-          startDate={startDate}
-          endDate={endDate}
-          noBorder
-          showClearDates
-          daySize={36}
-          hideKeyboardShortcutsPanel
-          displayFormat="YYYY-MM-DD"
-          minDate={today}
-          maxDate={moment().add(2, "months").endOf("month")}
-        />
+    <div className="searchBoxPosition">
+      <h1>
+        TRIPPIN<i className="fas fa-globe-europe"></i>
+      </h1>
+      <AutoComplete
+        address={start}
+        setAddress={setStart}
+        placeholder="Start"
+        customClass="auto_complete"
+      />
+      {startPlacesList()}
+      <AutoComplete
+        address={destination}
+        setAddress={setDestination}
+        placeholder="Destination"
+        customClass="auto_complete"
+      />
+      {destPlacesList()}
+      <DateRangePicker
+        startDateId="1"
+        endDateId="2"
+        onDatesChange={onDatesChange}
+        onFocusChange={onFocusChange}
+        focusedInput={isFocused}
+        startDate={startDate}
+        endDate={endDate}
+        noBorder
+        showClearDates
+        daySize={36}
+        hideKeyboardShortcutsPanel
+        displayFormat="YYYY-MM-DD"
+        minDate={today}
+        maxDate={moment().add(2, "months").endOf("month")}
+      />
 
-        <AwesomeButton
-          disabled={isDisabled}
-          onPress={handleButtonClick}
-          type="primary"
-          className="aws-btn"
-        >
-          Search
-        </AwesomeButton>
-      </div>
-    </>
+      <AwesomeButton
+        disabled={isDisabled}
+        onPress={handleButtonClick}
+        type="primary"
+        className="aws-btn"
+      >
+        Search
+      </AwesomeButton>
+      <button onClick={() => setStart("poland")}>OK</button>
+    </div>
   );
 };
 

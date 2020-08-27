@@ -47,9 +47,8 @@ const Map = () => {
   });
 
   const [selected, setSelected] = useState();
-
-  const [start, setStart] = useState("");
-  const [destination, setDestination] = useState("");
+  const [start, setStart] = useState();
+  const [destination, setDestination] = useState();
   const [chosenStartPlace, setChosenStartPlace] = useState();
   const [chosenDestPlace, setChosenDestPlace] = useState();
   const [destPlaces, setDestPlaces] = useState();
@@ -61,17 +60,20 @@ const Map = () => {
   const [startMarker, setStartMarker] = useState();
   const [destMarker, setDestMarker] = useState();
 
-  console.log(chosenStartPlace);
+  const [showError, setShowError] = useState(false);
 
   const [darkMode, setDarkMode] = useState(false);
 
   const handleClickDarkMode = () => {
-    if (darkMode === false) {
+    if (!darkMode) {
       setDarkMode(true);
     } else {
       setDarkMode(false);
     }
   };
+
+  const searchEl = document.querySelector(".searchBoxPosition");
+  const resetBtn = document.querySelector(".menuBtn");
 
   const handleButtonClick = () => {
     const startAirportCode = getAirportCode(chosenStartPlace);
@@ -79,35 +81,72 @@ const Map = () => {
 
     geocodeByAddress(chosenStartPlace)
       .then((res) => getLatLng(res[0]))
-      .then((res) => setStartMarker(res));
+      .then((res) => {
+        getQuote(
+          startAirportCode,
+          destAirportCode,
+          startDate.format("YYYY-MM-DD")
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            if (!data.Quotes.length) {
+              setStartMarker();
+              setDestMarker();
+              setShowError(true);
+            } else {
+              setStartMarker(res);
+            }
+            return setStartData(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     geocodeByAddress(chosenDestPlace)
       .then((res) => getLatLng(res[0]))
-      .then((res) => setDestMarker(res));
-
-    getQuote(startAirportCode, destAirportCode, startDate.format("YYYY-MM-DD"))
-      .then((response) => response.json())
-      .then((data) => setStartData(data))
+      .then((res) => {
+        getQuote(
+          destAirportCode,
+          startAirportCode,
+          endDate.format("YYYY-MM-DD")
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            if (!data.Quotes.length) {
+              setStartMarker();
+              setDestMarker();
+            } else {
+              setDestMarker(res);
+            }
+            return setDestData(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
       .catch((err) => {
         console.log(err);
       });
 
-    getQuote(destAirportCode, startAirportCode, endDate.format("YYYY-MM-DD"))
-      .then((response) => response.json())
-      .then((data) => setDestData(data))
-      .catch((err) => {
-        console.log(err);
-      });
+    searchEl.classList.add("hidden");
+    resetBtn.classList.remove("hidden");
   };
+
+  const handleMenuButtonClick = () => {
+    resetBtn.classList.add("hidden");
+    searchEl.classList.remove("hidden");
+    resetStates();
+  };
+
   useEffect(() => {
     setSelected(destMarker);
   }, [destMarker]);
-
-  // useEffect(() => {
-  //   if (selected) {
-  //     setSelected(destMarker);
-  //   }
-  // }, [selected, destMarker]);
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -132,6 +171,21 @@ const Map = () => {
     radius: 30000,
     paths: [startMarker, destMarker],
     zIndex: 1,
+  };
+
+  const resetStates = () => {
+    setStart();
+    setDestination();
+    setChosenStartPlace();
+    setChosenDestPlace();
+    setDestPlaces();
+    setStartPlaces();
+    setStartDate();
+    setEndDate();
+    setStartData();
+    setDestData();
+    setStartMarker();
+    setDestMarker();
   };
 
   return (
@@ -163,6 +217,10 @@ const Map = () => {
             endDate={endDate}
             setEndDate={setEndDate}
           />
+
+          <div onClick={handleMenuButtonClick} className="menuBtn hidden">
+            NEW SEARCH
+          </div>
 
           {startMarker ? (
             <Marker

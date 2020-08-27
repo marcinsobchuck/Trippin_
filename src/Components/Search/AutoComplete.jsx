@@ -46,14 +46,16 @@ export const AutoComplete = ({
       setAddress(value.name);
     }
   };
+  useEffect(() => {
+    console.log(address);
+  }, [address]);
 
   const handleInputChange = (event, value) => {
     setAddress(value);
   };
-
   return (
     <MaterialUiAutocomplete
-      inputValue={address}
+      inputValue={address || ""}
       onChange={handleChange}
       onInputChange={handleInputChange}
       className={customClass}
