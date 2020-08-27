@@ -1,2 +1,3 @@
 # Trippin
-CodersLab - projekt końcowy 
+
+CodersLab - projekt końcowy

@@ -1,0 +1,140 @@
+.searchBox_title {
+  font-family: "Luckiest Guy", cursive;
+  color: #edb83d;
+  font-size: 60px;
+  letter-spacing: 3px;
+  font-weight: 500;
+  i {
+    padding-left: 10px;
+    color: #d70026;
+  }
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.searchBoxPosition {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 100px;
+  left: 40px;
+  width: 450px;
+  background-color: #000b29f7;
+  padding: 10px 65px 30px 45px;
+  box-shadow: 0px 6px 9px #000b29;
+  border-radius: 10px;
+  transition: 0.4s;
+}
+
+.hidden {
+  left: -1000px;
+}
+
+.auto_complete {
+  background-color: #f8f5f2;
+  font-size: 22px;
+  line-height: 28px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+::placeholder {
+  color: #81715e;
+}
+
+.DateRangePicker {
+  width: 100%;
+}
+
+.DateRangePickerInput {
+  background-color: #f8f5f2;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 30px 0;
+  border-radius: 6px;
+
+  input {
+    margin: 0;
+    background-color: #f8f5f2;
+    border-radius: 6px;
+  }
+  .DateInput {
+    border-radius: 6px;
+  }
+
+  .DateRangePickerInput_clearDates {
+    background-color: #f8f5f2;
+    border-radius: 50%;
+    font-size: 13.3333px;
+    right: -57px;
+    transition: 0.2s ease-in-out;
+    outline: none;
+
+    &:hover {
+      padding: 11px;
+      right: -58px;
+      outline: none;
+    }
+    .DateRangePickerInput_clearDates_svg {
+      fill: #d70026;
+    }
+  }
+  .DateInput_fangStroke {
+    display: none;
+  }
+}
+
+.DateRangePickerInput__withBorder {
+  border-radius: 5px;
+  width: 100%;
+}
+
+.airport_name {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.airport_country {
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.airport_code {
+  font-weight: 300;
+  margin-left: 8px;
+}
+
+.aws-btn.aws-btn--primary {
+  z-index: 0;
+  --button-default-height: 52px;
+  --button-default-font-size: 20px;
+  --button-default-border-radius: 6px;
+  --button-horizontal-padding: 39px;
+  --button-raise-level: 5px;
+  --button-hover-pressure: 2;
+  --transform-speed: 0.225s;
+  --button-primary-color: #d70026;
+  --button-primary-color-dark: #510619;
+  --button-primary-color-light: #f8f5f2;
+  --button-primary-color-hover: #d70026;
+  --button-primary-color-active: #510619;
+  --button-primary-border: 0px solid #ffffff;
+  --button-secondary-color: #fffc6c;
+  --button-secondary-color-dark: #b9b500;
+  --button-secondary-color-light: #6c6a00;
+  --button-secondary-color-hover: #fffb3e;
+  --button-secondary-border: none;
+  --button-anchor-color: #f3c8ad;
+  --button-anchor-color-dark: #734922;
+  --button-anchor-color-light: #4c3016;
+  --button-anchor-color-hover: #f1bfa0;
+  --button-anchor-border: 1px solid #8c633c;
+}
