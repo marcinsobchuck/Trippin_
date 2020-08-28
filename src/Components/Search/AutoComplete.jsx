@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
-import { default as MaterialUiAutocomplete } from "@material-ui/lab/Autocomplete";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 import "./Search.scss";
+import TextField from "@material-ui/core/TextField";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { default as MaterialUiAutocomplete } from "@material-ui/lab/Autocomplete";
 
 export const AutoComplete = ({
   address,
@@ -46,9 +46,6 @@ export const AutoComplete = ({
       setAddress(value.name);
     }
   };
-  useEffect(() => {
-    console.log(address);
-  }, [address]);
 
   const handleInputChange = (event, value) => {
     setAddress(value);

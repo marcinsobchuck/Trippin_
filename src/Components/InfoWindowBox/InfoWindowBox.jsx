@@ -1,8 +1,7 @@
 import React from "react";
 
-import { InfoWindow } from "@react-google-maps/api";
-
 import "./InfoWindowBox.scss";
+import { InfoWindow } from "@react-google-maps/api";
 
 export const InfoWindowBox = ({
   selected,
@@ -29,9 +28,6 @@ export const InfoWindowBox = ({
             pixelOffset: new window.google.maps.Size(-10, -50),
           }}
           position={{ lat: selected.lat, lng: selected.lng }}
-          // onCloseClick={() => {
-          //   setSelected(null);
-          // }}
         >
           <div className="infobox_wrapper">
             <button

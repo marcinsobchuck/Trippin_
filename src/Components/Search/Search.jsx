@@ -4,15 +4,13 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-
-import { DateRangePicker } from "react-dates";
+import "react-awesome-button/dist/styles.css";
+import "./Search.scss";
 import moment from "moment";
+import { DateRangePicker } from "react-dates";
 import { AutoComplete } from "./AutoComplete";
 import { AwesomeButton } from "react-awesome-button";
-import "react-awesome-button/dist/styles.css";
-import "react-awesome-button/dist/themes/theme-blue.css";
-
-import "./Search.scss";
+import { getPlaces } from "../../api";
 
 const today = moment();
 
@@ -62,17 +60,8 @@ const Search = ({
 
   useEffect(() => {
     if (!start) return;
-    fetch(
-      `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/en-GB/?query=${start}`,
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host":
-            "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-          "x-rapidapi-key": process.env.REACT_APP_SKYSCANNER_API_KEY,
-        },
-      }
-    )
+
+    getPlaces(start)
       .then((response) => response.json())
       .then((res) => {
         const startPlaces = res.Places;
@@ -86,17 +75,8 @@ const Search = ({
 
   useEffect(() => {
     if (!destination) return;
-    fetch(
-      `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/UK/GBP/en-GB/?query=${destination}`,
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host":
-            "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-          "x-rapidapi-key": process.env.REACT_APP_SKYSCANNER_API_KEY,
-        },
-      }
-    )
+
+    getPlaces(destination)
       .then((response) => response.json())
       .then((res) => {
         const destPlaces = res.Places;

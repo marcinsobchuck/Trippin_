@@ -1,15 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
-import "../../reset/reset.scss";
-import mapStyles from "./mapStyles";
-import mapStylesDark from "./mapStylesDark";
-import Search from "../Search/Search";
-import { getQuote } from "../../api";
-import { getAirportCode } from "../../utils";
-
-import "./Map.scss";
-
-import { InfoWindowBox } from "../InfoWindowBox/InfoWindowBox";
-import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import React, { useState, useEffect } from "react";
 
 import {
   GoogleMap,
@@ -17,6 +6,15 @@ import {
   Marker,
   Polyline,
 } from "@react-google-maps/api";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import { getQuote } from "../../api";
+import { getAirportCode } from "../../utils";
+import { InfoWindowBox } from "../InfoWindowBox/InfoWindowBox";
+import "../../reset/reset.scss";
+import mapStyles from "./mapStyles";
+import mapStylesDark from "./mapStylesDark";
+import Search from "../Search/Search";
+import "./Map.scss";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -89,7 +87,6 @@ const Map = () => {
         )
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
             if (!data.Quotes.length) {
               setStartMarker();
               setDestMarker();
@@ -100,11 +97,11 @@ const Map = () => {
             return setStartData(data);
           })
           .catch((err) => {
-            console.log(err);
+            setShowError(true);
           });
       })
       .catch((err) => {
-        console.log(err);
+        setShowError(true);
       });
 
     geocodeByAddress(chosenDestPlace)
@@ -117,7 +114,6 @@ const Map = () => {
         )
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
             if (!data.Quotes.length) {
               setStartMarker();
               setDestMarker();
@@ -128,11 +124,11 @@ const Map = () => {
             return setDestData(data);
           })
           .catch((err) => {
-            console.log(err);
+            setShowError(true);
           });
       })
       .catch((err) => {
-        console.log(err);
+        setShowError(true);
       });
 
     searchEl.classList.add("hidden");
@@ -148,11 +144,6 @@ const Map = () => {
   useEffect(() => {
     setSelected(destMarker);
   }, [destMarker]);
-
-  const mapRef = useRef();
-  const onMapLoad = useCallback((map) => {
-    mapRef.current = map;
-  }, []);
 
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading maps";
@@ -195,10 +186,9 @@ const Map = () => {
       <div>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          zoom={5}
-          center={center}
+          zoom={destMarker ? 3.2 : 5}
+          center={destMarker ? destMarker : center}
           options={darkMode === false ? options : optionsDarkMode}
-          onLoad={onMapLoad}
         >
           <Search
             handleButtonClick={handleButtonClick}
