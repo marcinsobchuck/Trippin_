@@ -20,13 +20,11 @@ export const AutoComplete = ({
 
     if (!loading) return;
 
-    fetch("https://country.register.gov.uk/records.json?page-size=5000")
+    fetch("https://restcountries.eu/rest/v2/all")
       .then((res) => res.json())
       .then((countries) => {
         if (active) {
-          setOptions(
-            Object.keys(countries).map((key) => countries[key].item[0])
-          );
+          setOptions(countries.map((country) => country.name));
         }
       });
 
@@ -64,7 +62,7 @@ export const AutoComplete = ({
         setOpen(false);
       }}
       getOptionSelected={(option, value) => option.name === value.name}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => (option ? option : "")}
       options={options}
       loading={loading}
       renderInput={(params) => (
