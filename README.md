@@ -1,6 +1,5 @@
 # Trippin
 
-CodersLab - projekt końcowy
+[Demo](https://trippin.netlify.app/)
 
-
-https://trippin.netlify.app/
+#Temporary
